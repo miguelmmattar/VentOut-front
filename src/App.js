@@ -1,24 +1,66 @@
-import logo from './logo.svg';
-import './App.css';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from 'react-router-dom';
+
+import SignIn from './pages/SignIn';
+import SignUp from './pages/SignUp';
+import Dashboard from './pages/Dashboard';
+
+import Home from './pages/dashboard/Home';
+import AddReport from './pages/dashboard/AddReport';
+import History from './pages/dashboard/History';
+import Reports from './pages/dashboard/Reports';
+import Moods from './pages/dashboard/Moods';
+import Charts from './pages/dashboard/Charts';
+
+import { UserProvider } from './contexts/UserContext';
+
+import useToken from './hooks/useToken';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <UserProvider>
+      <Router>
+        <Routes>
+          <Route path="/sign-up" element={<SignUp />} />
+          <Route path="/" element={<SignIn />} />
+
+          <Route
+            path="/dashboard"
+            element={(
+              <ProtectedRouteGuard>
+                <Dashboard />
+              </ProtectedRouteGuard>
+                )}
+          >
+            <Route path="home" element={<Home />} />
+            <Route path="add/report" element={<AddReport />} />
+            <Route path="history" element={<History />} />
+            <Route path="history/reports" element={<Reports />} />
+            <Route path="history/moods" element={<Moods />} />
+            <Route path="history/charts" element={<Charts />} />
+            <Route index path="*" element={<Navigate to="/dashboard/home" />} />
+          </Route>
+        </Routes>
+      </Router>
+    </UserProvider>
+  );
+}
+
+function ProtectedRouteGuard({ children }) {
+  const token = useToken();
+
+  if (!token) {
+    return <Navigate to="/sign-in" />;
+  }
+
+  return (
+    <>
+      {children}
+    </>
   );
 }
 
