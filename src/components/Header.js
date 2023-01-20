@@ -1,11 +1,13 @@
 import styled from 'styled-components';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 import {
   BsHouseFill, BsFillClockFill, BsFillPlusCircleFill,
 } from 'react-icons/bs';
 import { IoChevronBack } from 'react-icons/io5';
 
+import createTitle from '../utils/HeaderUtils';
 import { mainPalette } from '../utils/colors';
 import noProfilePicture from '../assets/images/no-profile-picture-icon.webp';
 
@@ -22,6 +24,11 @@ import noProfilePicture from '../assets/images/no-profile-picture-icon.webp';
 export default function Header() {
   const navigate = useNavigate();
   const location = useLocation().pathname;
+  const [title, setTitle] = useState('');
+
+  useEffect(() => {
+    setTitle(createTitle(location));
+  }, [location]);
 
   function goBack() {
     if (location === '/dashboard/home') {
@@ -31,32 +38,46 @@ export default function Header() {
   }
 
   return (
-    <StyledHeader mainPalette={mainPalette} location={location}>
-      <IoChevronBack className="back" onClick={goBack} />
-      <AppName><h1>VentOut</h1></AppName>
-      <span>
-        <Link to="add/report"><BsFillPlusCircleFill className="desktop add" /></Link>
-        <Link to="history"><BsFillClockFill className="desktop history" /></Link>
-        <Link to="home"><BsHouseFill className="desktop home" /></Link>
-        <img src={noProfilePicture} alt="Profile" />
-      </span>
-    </StyledHeader>
+    <HeaderContainer>
+      <StyledHeader mainPalette={mainPalette} location={location}>
+        <IoChevronBack className="back" onClick={goBack} />
+        <Title><h1>{title}</h1></Title>
+        <div>
+          <span className="desktop">
+            <Link to="add/report"><BsFillPlusCircleFill className="add" /></Link>
+            <Link to="history"><BsFillClockFill className="history" /></Link>
+            <Link to="home"><BsHouseFill className="home" /></Link>
+          </span>
+          <img src={noProfilePicture} alt="Profile" />
+        </div>
+      </StyledHeader>
+    </HeaderContainer>
   );
 }
 
-const AppName = styled.div`
+const Title = styled.div`
     position: absolute;
-    width: 200px;
+    width: 100%;
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    left: calc(50% - 100px);
+    left: 0;
+`;
+
+const HeaderContainer = styled.div`
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 1;
+    width: 100%;
+    height: 80px;
+
 `;
 
 const StyledHeader = styled.div`
     width: 100%;
-    height: 80px;
+    height: 100%;
     display: flex;
     background-color: ${(props) => props.mainPalette.main};
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -68,16 +89,16 @@ const StyledHeader = styled.div`
     h1 {
         font-size: 32px;
         color: white;
-        position: absolute;
-        /* width: 143px;
-        height: 32px; */
-        left: calc(50% - 71.5px);
-        top: calc(50% - 16px);;
+    }
+
+    div {
+        display: flex;
     }
 
     span {
         display: flex;
         align-items: center;
+        z-index: 1;
     }
 
     img {
@@ -92,10 +113,6 @@ const StyledHeader = styled.div`
         width: 30px;
     }
 
-    .desktop {
-        margin: 10px;
-    }
-
     .back {
         color: ${(props) => (props.location === '/dashboard/home' ? props.mainPalette.disabled : 'white')};
         cursor: ${(props) => (props.location === '/dashboard/home' ? 'initial' : 'pointer')};
@@ -104,15 +121,18 @@ const StyledHeader = styled.div`
     .home {
         color: ${(props) => (props.location === '/dashboard/home' ? props.mainPalette.disabled : 'white')};
         cursor: ${(props) => (props.location === '/dashboard/home' ? 'initial' : 'pointer')};
+        margin: 10px;
     }
 
     .history {
         color: ${(props) => (props.location === '/dashboard/history' ? props.mainPalette.disabled : 'white')};
         cursor: ${(props) => (props.location === '/dashboard/history' ? 'initial' : 'pointer')};
+        margin: 10px;
     }
 
     .add {
         color: ${(props) => (props.location === '/dashboard/add/report' ? props.mainPalette.disabled : 'white')};
         cursor: ${(props) => (props.location === '/dashboard/add/report' ? 'initial' : 'pointer')};
+        margin: 10px;
     }
 `;

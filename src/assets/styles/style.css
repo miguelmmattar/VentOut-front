@@ -18,11 +18,19 @@ body, p, div, a, span {
 }
 
 .desktop {
-    display: none;
+    display: none !important;
+}
+
+.mobile {
+    display: flex !important;
 }
 
 @media(min-width: 1024px) {
     .desktop {
-        display: flex;
+        display: flex !important;
+    }
+
+    .mobile {
+        display: none !important;
     }
 }
