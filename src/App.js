@@ -7,7 +7,7 @@ import {
 
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
-import Dashboard from './pages/Dashboard';
+import Dashboard from './layouts/Dashboard';
 
 import Home from './pages/dashboard/Home';
 import AddReport from './pages/dashboard/AddReport';

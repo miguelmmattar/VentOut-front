@@ -9,12 +9,20 @@ h1 {
     font-family: "Archivo Black", sans-serif;
 }
 
-h2, h3, h4, h5, h6 {
-    font-family: 'Roboto Mono', monospace;
-}
-
-body, p, div, a, span {
-    font-family: 'Roboto', sans-serif;;
+h2,
+h3,
+h4,
+h5,
+h6,
+input,
+body, 
+p, 
+div, 
+a, 
+span
+ {
+    font-family: 'Roboto', monospace;
+    letter-spacing: 2px;
 }
 
 .desktop {

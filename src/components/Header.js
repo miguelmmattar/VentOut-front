@@ -6,21 +6,11 @@ import {
   BsHouseFill, BsFillClockFill, BsFillPlusCircleFill,
 } from 'react-icons/bs';
 import { IoChevronBack } from 'react-icons/io5';
+import { FiLogOut } from 'react-icons/fi';
 
 import createTitle from '../utils/HeaderUtils';
 import { mainPalette } from '../utils/colors';
-import noProfilePicture from '../assets/images/no-profile-picture-icon.webp';
 
-/* BsEmojiAngry,
-    BsEmojiAngryFill,
-    BsEmojiFrown,
-    BsEmojiFrownFill,
-    BsEmojiNeutral,
-    BsEmojiNeutralFill,
-    BsEmojiSmile,
-    BsEmojiSmileFill,
-    BsEmojiLaughing,
-    BsEmojiLaughingFill */
 export default function Header() {
   const navigate = useNavigate();
   const location = useLocation().pathname;
@@ -41,14 +31,17 @@ export default function Header() {
     <HeaderContainer>
       <StyledHeader mainPalette={mainPalette} location={location}>
         <IoChevronBack className="back" onClick={goBack} />
+
         <Title><h1>{title}</h1></Title>
+
         <div>
           <span className="desktop">
             <Link to="add/report"><BsFillPlusCircleFill className="add" /></Link>
             <Link to="history"><BsFillClockFill className="history" /></Link>
             <Link to="home"><BsHouseFill className="home" /></Link>
           </span>
-          <img src={noProfilePicture} alt="Profile" />
+
+          <FiLogOut className="logout" />
         </div>
       </StyledHeader>
     </HeaderContainer>
@@ -101,13 +94,6 @@ const StyledHeader = styled.div`
         z-index: 1;
     }
 
-    img {
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        margin: 10px;
-    }
-
     svg {
         height: 30px;
         width: 30px;
@@ -116,6 +102,14 @@ const StyledHeader = styled.div`
     .back {
         color: ${(props) => (props.location === '/dashboard/home' ? props.mainPalette.disabled : 'white')};
         cursor: ${(props) => (props.location === '/dashboard/home' ? 'initial' : 'pointer')};
+        z-index: 1;
+    }
+
+    .logout {
+      color: white;
+      margin: auto 10px;
+      cursor: pointer;
+      z-index: 1;
     }
 
     .home {

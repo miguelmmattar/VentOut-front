@@ -1,7 +1,7 @@
 const mainPalette = {
-  main: '#5D8D86',
-  disabled: '#83B6AF',
-  background: '#83B6AF',
+  main: '#7FB0A8', // #5D8D86
+  disabled: '#B1C9C5', // #83B6AF
+  background: '#F8F8F8',
   placeholder: '#A7ADB0',
   border: '#E4E6E7',
 };
