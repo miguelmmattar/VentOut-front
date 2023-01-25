@@ -18,76 +18,78 @@ const StyledAuth = styled.div`
     background-color: ${(props) => props.mainPalette.background};
 
     .container {
+      width: 100%;
+      height: 100%;
+      background-color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: baseline;
+      align-items: center;
+      padding: 30px 30px;
+
+      img {
+          width: 150px;
+          margin: 30px 0 40px 0;
+      }
+
+      h2 {
+        font-size: 20px;
+        font-weight: 700;
+        color: ${(props) => props.mainPalette.main};
         width: 100%;
-        height: 100%;
-        background-color: white;
-        display: flex;
-        flex-direction: column;
-        justify-content: baseline;
-        align-items: center;
-        padding: 30px 30px;
+        text-align: left;
+      }
 
-        img {
-            width: 150px;
-            margin: 30px 0 40px 0;
-        }
+      h5 {
+        font-size: 14px;
+        color: ${(props) => props.mainPalette.placeholder};
+        margin: 0 10px;
+      }
 
-        h2 {
-          font-size: 20px;
-          font-weight: 700;
-          color: ${(props) => props.mainPalette.main};
-          width: 100%;
-          text-align: left;
-        }
+      a {
+        text-decoration: none;
+        font-size: 14px;
+        letter-spacing: 1px;
+        color: ${(props) => props.mainPalette.placeholder};
+      }
 
-        h5 {
-          font-size: 14px;
-          color: ${(props) => props.mainPalette.placeholder};
-          margin: 0 5px;
-        }
+      form {
+        margin-top: 20px;
 
-        a {
-          text-decoration: none;
-          font-size: 14px;
-          letter-spacing: 1px;
-          color: ${(props) => props.mainPalette.placeholder};
-        }
-
-        form {
-            margin-top: 20px;
-
-            input {
-                height: 40px;
-                width: 100%;
-                border-radius: 10px;
-                margin-bottom: 10px;
-                border: solid 1px ${(props) => props.mainPalette.border};
-                padding: 10px;
-            }
-
-            input[type="submit"] {
-              background-color: ${(props) => props.mainPalette.main};
-              color: white;
-              font-weight: 700;
-              box-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
-            }
-
-            input[type="text"]::placeholder {
-              color: ${(props) => props.mainPalette.placeholder};
-            }
-        }
-
-        @media(min-width: 1024px) {
-            width: 500px;
-            height: auto;
-            border-radius: 20px;
+        input {
+            height: 40px;
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 10px;
             border: solid 1px ${(props) => props.mainPalette.border};
-            box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.15);
-
-            img {
-              margin: 50px 0 40px 0; 
-            }
+            padding: 10px;
         }
+
+        input[type="submit"] {
+          background-color: ${(props) => props.mainPalette.main};
+          color: white;
+          font-weight: 700;
+          box-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+          cursor: pointer;
+        }
+
+        input[type="text"]::placeholder,
+        input[type="password"]::placeholder {
+          color: ${(props) => props.mainPalette.placeholder};
+        }
+      }
+
+      @media(min-width: 1024px) {
+          width: 500px;
+          height: auto;
+          border-radius: 20px;
+          border: solid 1px ${(props) => props.mainPalette.border};
+          box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.15);
+
+          img {
+            margin: 50px 0 40px 0; 
+          }
+      }
     }
 `;
 

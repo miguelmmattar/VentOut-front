@@ -10,10 +10,10 @@ export default function useAsync(handler, immediate = true) {
     setError(null);
 
     try {
-      const data = await handler(...args);
-      setData(data);
+      const info = await handler(...args);
+      setData(info);
       setLoading(false);
-      return data;
+      return info;
     } catch (err) {
       setError(error);
       setLoading(false);
