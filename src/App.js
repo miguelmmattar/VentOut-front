@@ -4,6 +4,9 @@ import {
   Route,
   Navigate,
 } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+
+import 'react-toastify/dist/ReactToastify.min.css';
 
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
@@ -22,31 +25,34 @@ import useToken from './hooks/useToken';
 
 function App() {
   return (
-    <UserProvider>
-      <Router>
-        <Routes>
-          <Route path="/sign-up" element={<SignUp />} />
-          <Route path="/" element={<SignIn />} />
+    <>
+      <ToastContainer />
+      <UserProvider>
+        <Router>
+          <Routes>
+            <Route path="/sign-up" element={<SignUp />} />
+            <Route path="/" element={<SignIn />} />
 
-          <Route
-            path="/dashboard"
-            element={(
-              <ProtectedRouteGuard>
-                <Dashboard />
-              </ProtectedRouteGuard>
-                )}
-          >
-            <Route path="home" element={<Home />} />
-            <Route path="add/report" element={<AddReport />} />
-            <Route path="history" element={<History />} />
-            <Route path="history/reports" element={<Reports />} />
-            <Route path="history/moods" element={<Moods />} />
-            <Route path="history/charts" element={<Charts />} />
-            <Route index path="*" element={<Navigate to="/dashboard/home" />} />
-          </Route>
-        </Routes>
-      </Router>
-    </UserProvider>
+            <Route
+              path="/dashboard"
+              element={(
+                <ProtectedRouteGuard>
+                  <Dashboard />
+                </ProtectedRouteGuard>
+                  )}
+            >
+              <Route path="home" element={<Home />} />
+              <Route path="add/report" element={<AddReport />} />
+              <Route path="history" element={<History />} />
+              <Route path="history/reports" element={<Reports />} />
+              <Route path="history/moods" element={<Moods />} />
+              <Route path="history/charts" element={<Charts />} />
+              <Route index path="*" element={<Navigate to="/dashboard/home" />} />
+            </Route>
+          </Routes>
+        </Router>
+      </UserProvider>
+    </>
   );
 }
 

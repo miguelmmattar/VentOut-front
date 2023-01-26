@@ -5,6 +5,12 @@ export async function signUp(name, email) {
   return response.data;
 }
 
-export async function signIn(email) {
-  return email;
+export async function signIn(email, token) {
+  const response = await api.post('/auth/sign-in', { email, token });
+  return response.data;
+}
+
+export async function signOut(userId) {
+  const response = await api.put('/auth/sign-out', { userId });
+  return response.data;
 }

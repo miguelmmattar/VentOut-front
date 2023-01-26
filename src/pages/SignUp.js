@@ -60,10 +60,6 @@ export default function SignUp() {
     console.log(error);
   }
 
-  if (user) {
-    return console.log(user);
-  }
-
   return (
     <Auth>
       <div className="container">

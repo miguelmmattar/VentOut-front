@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
+import { toast } from 'react-toastify';
 
 import {
   BsHouseFill, BsFillClockFill, BsFillPlusCircleFill,
@@ -10,10 +11,14 @@ import { FiLogOut } from 'react-icons/fi';
 
 import createTitle from '../utils/HeaderUtils';
 import { mainPalette } from '../utils/colors';
+import useSignOut from '../hooks/api/useSignOut';
+import UserContext from '../contexts/UserContext';
 
 export default function Header() {
+  const { signOut } = useSignOut();
   const navigate = useNavigate();
   const location = useLocation().pathname;
+  const { userData, setUserData } = useContext(UserContext);
   const [title, setTitle] = useState('');
 
   useEffect(() => {
@@ -25,6 +30,19 @@ export default function Header() {
       return;
     }
     navigate(-1);
+  }
+
+  async function handleSignOut() {
+    try {
+      await signOut(userData.user.id);
+      console.log('deu bom');
+      setUserData({});
+
+      navigate('/');
+    } catch (error) {
+      console.log('deu ruim');
+      toast('Unable to logout!');
+    }
   }
 
   return (
@@ -41,7 +59,7 @@ export default function Header() {
             <Link to="home"><BsHouseFill className="home" /></Link>
           </span>
 
-          <FiLogOut className="logout" />
+          <FiLogOut className="logout" onClick={handleSignOut} />
         </div>
       </StyledHeader>
     </HeaderContainer>
