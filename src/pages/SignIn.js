@@ -106,11 +106,11 @@ export default function SignIn() {
             <BsGoogle color={googleAuth.color} />
           </OAuth>
 
-          <OAuth logo={githubAuth.logo} color={githubAuth.color}>
+          <OAuth name={githubAuth.name} color={githubAuth.color}>
             <FiGithub color={githubAuth.color} />
           </OAuth>
 
-          <OAuth logo={facebookAuth.logo} color={facebookAuth.color}>
+          <OAuth name={facebookAuth.name} color={facebookAuth.color}>
             <ImFacebook color={facebookAuth.color} />
           </OAuth>
         </OAuthWrapper>

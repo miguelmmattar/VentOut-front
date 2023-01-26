@@ -3,15 +3,20 @@ import {
 } from 'firebase/auth';
 import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+
 import auth from '../../services/firebaseConfig';
 import { googleAuth, githubAuth, facebookAuth } from '../../utils/authUtils';
-/* import { signIn } from '../../services/authApi';
-import { signUp } from '../../services/userApi'; */
+import useSignIn from '../../hooks/api/useSignIn';
+import useSignUp from '../../hooks/api/useSignUp';
+
 import UserContext from '../../contexts/UserContext';
 import { LogoWrapper } from '../../layouts/Auth';
 
 export default function OAuth({ children, name, color }) {
-  /* const { setUserData } = useContext(UserContext);
+  const { signIn } = useSignIn();
+  const { signUp } = useSignUp();
+  const { setUserData } = useContext(UserContext);
   const navigate = useNavigate();
 
   async function handleOAuthSignIn() {
@@ -31,31 +36,28 @@ export default function OAuth({ children, name, color }) {
     }
 
     const result = await signInWithPopup(auth, provider);
-    const { email } = result.user;
-    const password = result.user.uid;
-
+    const { email, accessToken, displayName } = result.user;
+    console.log(result.user);
     try {
-      userData = await signIn(email, password);
+      userData = await signIn(email, accessToken);
 
       setUserData(userData);
-      toast('Login realizado com sucesso!');
-      navigate('/dashboard');
-    } catch (error) {
+      navigate('/dashboard/home');
+    } catch {
       try {
-        await signUp(email, password);
-        userData = await signIn(email, password);
+        await signUp(displayName, email);
+        userData = await signIn(email, accessToken);
 
         setUserData(userData);
-        toast('Login realizado com sucesso!');
         navigate('/dashboard');
-      } catch (error) {
+      } catch {
         toast('Não foi possível fazer o login!');
       }
     }
-  } */
+  }
 
   return (
-    <div>
+    <div onClick={handleOAuthSignIn}>
       <LogoWrapper color={color}>{children}</LogoWrapper>
     </div>
   );
