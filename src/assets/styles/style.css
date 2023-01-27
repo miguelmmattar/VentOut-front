@@ -19,7 +19,8 @@ body,
 p, 
 div, 
 a, 
-span
+span,
+select
  {
     font-family: 'Roboto', monospace;
     letter-spacing: 2px;
@@ -31,6 +32,11 @@ span
 
 .mobile {
     display: flex !important;
+}
+
+textarea:focus, input:focus, select:focus {
+    box-shadow: 0 0 0 0;
+    outline: 0;
 }
 
 @media(min-width: 1024px) {
