@@ -1,5 +1,6 @@
 import styled from 'styled-components';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { toast } from 'react-toastify';
 
 import {
   BsEmojiAngry,
@@ -13,12 +14,37 @@ import {
   BsEmojiLaughing,
   BsEmojiLaughingFill,
 } from 'react-icons/bs';
+import useTodaysMood from '../hooks/api/useTodaysMood';
+import useSavesMood from '../hooks/api/useSaveMood';
+import dateFilters from '../utils/dateUtils';
 
 import { mainPalette } from '../utils/colors';
 import moods from '../utils/MoodsUtils';
 
 export default function MoodPicker() {
+  const { getTodaysMood } = useTodaysMood();
   const [selected, setSelected] = useState('');
+
+  useEffect(() => {
+    const checkTodaysMood = async () => {
+      const filter = {
+        date: new Date(),
+        param: dateFilters.day,
+      };
+
+      try {
+        const todaysMood = await getTodaysMood(filter);
+
+        if (todaysMood) {
+          setSelected(todaysMood.name);
+        }
+      } catch (error) {
+        toast('Cannot load your mood!');
+      }
+    };
+
+    checkTodaysMood();
+  }, []);
 
   return (
     <StyledMoodPicker mainPalette={mainPalette}>
@@ -48,8 +74,27 @@ export default function MoodPicker() {
 }
 
 function Mood({ children, setSelected }) {
-  function selectMood(mood) {
-    setSelected(mood);
+  const { saveMood, saveMoodLoading } = useSavesMood();
+
+  async function selectMood(mood) {
+    if (saveMoodLoading) {
+      return;
+    }
+
+    const body = {
+      name: mood,
+      newMood: {
+        updatedAt: new Date(),
+      },
+    };
+
+    try {
+      await saveMood(body);
+
+      setSelected(mood);
+    } catch (error) {
+      toast('Cannot save your mood!');
+    }
   }
 
   return (

@@ -40,6 +40,7 @@ export default function SignIn() {
 
       if (user) {
         session = await signIn(data.email, user.user.accessToken);
+
         setUserData(session);
       } else {
         toast('Unable to login!');
@@ -48,16 +49,15 @@ export default function SignIn() {
 
       navigate('/dashboard/home');
     } catch {
+      if (error) {
+        console.log(error);
+      }
       toast('Unable to login!');
       setData({
         email: '',
         password: '',
       });
     }
-  }
-
-  if (error) {
-    toast(error);
   }
 
   return (

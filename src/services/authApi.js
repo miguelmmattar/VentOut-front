@@ -11,6 +11,6 @@ export async function signIn(email, token) {
 }
 
 export async function signOut(userId) {
-  const response = await api.put('/auth/sign-out', { userId });
+  const response = await api.delete(`/auth/sign-out/${userId}`);
   return response.data;
 }

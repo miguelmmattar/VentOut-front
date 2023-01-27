@@ -18,6 +18,7 @@ export default function OAuth({ children, name, color }) {
   const { signUp } = useSignUp();
   const { setUserData } = useContext(UserContext);
   const navigate = useNavigate();
+  let result;
 
   async function handleOAuthSignIn() {
     let provider;
@@ -35,12 +36,18 @@ export default function OAuth({ children, name, color }) {
       provider = new FacebookAuthProvider();
     }
 
-    const result = await signInWithPopup(auth, provider);
+    try {
+      result = await signInWithPopup(auth, provider);
+    } catch (error) {
+      toast('E-mail already used for different account!');
+      return;
+    }
+
     const { email, accessToken, displayName } = result.user;
-    console.log(result.user);
+
     try {
       userData = await signIn(email, accessToken);
-
+      console.log(userData);
       setUserData(userData);
       navigate('/dashboard/home');
     } catch {

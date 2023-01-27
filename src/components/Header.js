@@ -35,12 +35,10 @@ export default function Header() {
   async function handleSignOut() {
     try {
       await signOut(userData.user.id);
-      console.log('deu bom');
       setUserData({});
 
       navigate('/');
     } catch (error) {
-      console.log('deu ruim');
       toast('Unable to logout!');
     }
   }
