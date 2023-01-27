@@ -7,7 +7,7 @@ import Container from '../../components/StyledComponents/Container';
 
 export default function AddReport() {
   const [initialData, setInitialData] = useState({});
-  const [text, setText] = useState([]);
+  const [text, setText] = useState('');
   const [emotions, setEmotions] = useState([]);
   const [physicalSymptoms, setPhysicalSymptoms] = useState([]);
   const [emotionalSymptoms, setEmotionalSymptoms] = useState([]);
@@ -55,6 +55,9 @@ export default function AddReport() {
           ]}
         />
       </div>
+      
+      <StyledButton name="save" mainPalette={mainPalette}>SAVE</StyledButton>
+      <StyledButton name="cancel" mainPalette={mainPalette}>CANCEL</StyledButton>
     </StyledReport>
   );
 }
@@ -150,6 +153,13 @@ const StyledReport = styled.div`
       height: 20px;
     }
   }
+`;
+
+const StyledButton = styled.button`
+  width: 100%;
+  height: 50px;
+  border-radius: 25px;
+  background-color: ${(props) => (props.name === 'save' ? props.mainPalette.main : 'white')};
 `;
 
 const Separator = styled.div`

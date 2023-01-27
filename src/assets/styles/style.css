@@ -20,7 +20,8 @@ p,
 div, 
 a, 
 span,
-select
+select,
+button
  {
     font-family: 'Roboto', monospace;
     letter-spacing: 2px;

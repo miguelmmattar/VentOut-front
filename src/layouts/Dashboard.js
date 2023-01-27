@@ -23,4 +23,8 @@ const StyledDashboard = styled.div`
     padding-left: 140px;
     padding-right: 140px;
   }
+
+  @media(min-width: 1024px) {
+    margin-bottom: 0;
+  }
 `;
