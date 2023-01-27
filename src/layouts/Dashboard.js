@@ -1,16 +1,12 @@
 import styled from 'styled-components';
 
-import Header from '../components/Header';
-import Footer from '../components/Footer';
 import { mainPalette } from '../utils/colors';
-import MoodPicker from '../components/MoodPicker';
 
-export default function Dashboard() {
+export default function Dashboard({ children }) {
+  console.log(children);
   return (
     <StyledDashboard mainPalette={mainPalette}>
-      <Header />
-      <MoodPicker />
-      <Footer />
+      {children}
     </StyledDashboard>
   );
 }
