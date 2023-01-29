@@ -13,7 +13,7 @@ export default function Dashboard({ children }) {
 
 const StyledDashboard = styled.div`
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   background-color: ${(props) => props.mainPalette.background};
   padding: 80px 20px 40px 20px;
   position: relative;

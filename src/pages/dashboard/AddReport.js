@@ -1,16 +1,72 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { mainPalette } from '../../utils/colors';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
+import { mainPalette } from '../../utils/colors';
 import SelectFromData from '../../components/AddReport/SelectFromData';
 import Container from '../../components/StyledComponents/Container';
+import useInitialData from '../../hooks/api/useInitialData';
+import useSaveReport from '../../hooks/api/useSaveReport';
+import SelectDate from '../../components/AddReport/SelectDate';
 
 export default function AddReport() {
-  const [initialData, setInitialData] = useState({});
+  const navigate = useNavigate();
+  const { getInitialData } = useInitialData();
+  const { saveReport } = useSaveReport();
   const [text, setText] = useState('');
+  const [startDate, setStartDate] = useState(new Date());
+  const [initialData, setInitialData] = useState([]);
   const [emotions, setEmotions] = useState([]);
   const [physicalSymptoms, setPhysicalSymptoms] = useState([]);
   const [emotionalSymptoms, setEmotionalSymptoms] = useState([]);
+  const [disableSubmit, setDisableSubmit] = useState(true);
+
+  useEffect(() => {
+    const loadInitialData = async () => {
+      try {
+        const result = await getInitialData();
+
+        if (result) {
+          setInitialData(result);
+        }
+      } catch (error) {
+        toast('Cannot load initial data!');
+      }
+    };
+
+    loadInitialData();
+  }, []);
+
+  useEffect(() => {
+    if (text[0] && emotions[0] && physicalSymptoms[0] && emotionalSymptoms[0]) {
+      setDisableSubmit(false);
+    } else {
+      setDisableSubmit(true);
+    }
+  }, [text, emotions, physicalSymptoms, emotionalSymptoms]);
+
+  async function handleSubmit() {
+    if (disableSubmit) {
+      toast('All fields are required"');
+      return;
+    }
+
+    const data = {
+      text,
+      emotions,
+      symptoms: physicalSymptoms.concat(emotionalSymptoms),
+      date: startDate,
+    };
+
+    try {
+      await saveReport(data);
+      toast('Report successfully created!');
+      navigate('home');
+    } catch {
+      toast('Unable to post report!');
+    }
+  }
 
   return (
     <StyledReport mainPalette={mainPalette}>
@@ -22,42 +78,42 @@ export default function AddReport() {
         />
       </div>
 
-      <Separator mainPalette={mainPalette} />
+      <Divider mainPalette={mainPalette} />
 
       <div className="selection-area">
+        <SelectDate
+          label="When did it happen?"
+          startDate={startDate}
+          setStartDate={setStartDate}
+        />
+
         <SelectFromData
           label="How do you feel about it?"
           placeholder="Add an emotion"
-          givenData={[
-            { value: 'chocolate', label: 'Chocolate', color: 'brown' },
-            { value: 'strawberry', label: 'Strawberry', color: 'red' },
-            { value: 'vanilla', label: 'Vanilla', color: 'blue' },
-          ]}
+          givenData={initialData?.emotions}
+          setDataOut={setEmotions}
         />
 
         <SelectFromData
           label="Have you had any physical symptoms?"
           placeholder="Add a symptom"
-          givenData={[
-            { value: 'chocolate', label: 'Chocolate' },
-            { value: 'strawberry', label: 'Strawberry' },
-            { value: 'vanilla', label: 'Vanilla' },
-          ]}
+          givenData={initialData?.physicalSymptoms}
+          setDataOut={setPhysicalSymptoms}
         />
 
         <SelectFromData
           label="Have you had any emotional symptoms?"
           placeholder="Add a symptom"
-          givenData={[
-            { value: 'chocolate', label: 'Chocolate' },
-            { value: 'strawberry', label: 'Strawberry' },
-            { value: 'vanilla', label: 'Vanilla' },
-          ]}
+          givenData={initialData?.emotionalSymptoms}
+          setDataOut={setEmotionalSymptoms}
         />
       </div>
-      
-      <StyledButton name="save" mainPalette={mainPalette}>SAVE</StyledButton>
-      <StyledButton name="cancel" mainPalette={mainPalette}>CANCEL</StyledButton>
+
+      <ButtonsWrapper mainPalette={mainPalette} disabled={disableSubmit}>
+        <button type="button" name="save" onClick={handleSubmit} disabled={disableSubmit}>SAVE</button>
+        <button type="button" name="cancel" onClick={() => navigate('home')}>CANCEL</button>
+      </ButtonsWrapper>
+
     </StyledReport>
   );
 }
@@ -91,12 +147,6 @@ const StyledReport = styled.div`
   h5 {
     font-weight: 700;
     margin: 20px 0 5px 0;
-  }
-
-  svg {
-    color: ${(props) => props.mainPalette.main};
-    width: 18px;
-    height: 18px;
   }
 
   textarea {
@@ -155,14 +205,46 @@ const StyledReport = styled.div`
   }
 `;
 
-const StyledButton = styled.button`
-  width: 100%;
-  height: 50px;
-  border-radius: 25px;
-  background-color: ${(props) => (props.name === 'save' ? props.mainPalette.main : 'white')};
+const ButtonsWrapper = styled.div`
+  height: 90px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-top: 30px;
+  
+  button {
+    width: 100%;
+    height: 40px;
+    border-radius: 25px;
+    background-color: white;
+    border: 2px solid ${(props) => props.mainPalette.main};
+    box-shadow: 0 0 0 0;
+    color: ${(props) => props.mainPalette.main};
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  button:first-child {
+    background-color: ${(props) => props.mainPalette.main};
+    border: none;
+    color: ${(props) => (props.disabled ? props.mainPalette.disabled : 'white')};
+    cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')};
+  }
+
+  @media(min-width: 1024px) {
+    position: absolute;
+    flex-direction: row-reverse;
+    width: 210px;
+    right: 120px;
+    bottom: 10px;
+
+    button {
+      width: 100px;
+    }
+  }
 `;
 
-const Separator = styled.div`
+const Divider = styled.div`
   height: calc(100vh - 160px);
   width: 1px;
   margin: 20px 100px 0 100px;
