@@ -19,3 +19,13 @@ export async function postReport(body, token) {
 
   return response.data;
 }
+
+export async function loadReports(token) {
+  const response = await api.get('/report', {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return response.data;
+}

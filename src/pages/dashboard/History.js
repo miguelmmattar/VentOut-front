@@ -8,14 +8,14 @@ import options from '../../utils/HistoryUtils';
 export default function History() {
   return (
     <StyledHistory mainPalette={mainPalette}>
-      <Link to="moods"><HistorOption option={options.moods} /></Link>
-      <Link to="reports"><HistorOption option={options.reports} /></Link>
-      <Link to="charts"><HistorOption option={options.charts} /></Link>
+      <Link to="moods"><HistoryOption option={options.moods} /></Link>
+      <Link to="reports"><HistoryOption option={options.reports} /></Link>
+      <Link to="charts"><HistoryOption option={options.charts} /></Link>
     </StyledHistory>
   );
 }
 
-function HistorOption({ option }) {
+function HistoryOption({ option }) {
   return (
     <div>
       <h4>{option}</h4>
@@ -24,7 +24,7 @@ function HistorOption({ option }) {
   );
 }
 
-const StyledHistory = styled.div`
+export const StyledHistory = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -63,6 +63,7 @@ const StyledHistory = styled.div`
     position: initial;
     flex-direction: row;
     margin: 20px 0;
+    flex-wrap: wrap;
 
     div {
       border-radius: 10px;
@@ -70,8 +71,8 @@ const StyledHistory = styled.div`
       height: 180px;
     }
 
-    a:nth-child(2) {
-      margin: 0 30px;
+    a {
+      margin: 10px;
     }
 
     h4 {

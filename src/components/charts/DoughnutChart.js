@@ -11,7 +11,7 @@ export default function DoughnutChart({ data }) {
     datasets: [{
       label: 'Occurrences',
       data: data.map((item) => item.value),
-      backgroundColor: data.map((item) => item.color),
+      backgroundColor: data.map((item) => `${item.color}95`),
       fontColor: data.map((item) => item.color),
     }],
   };

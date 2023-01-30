@@ -111,6 +111,7 @@ const StyledHome = styled.div`
     display: flex;
     justify-content: space-between;
     padding: 100px 100px 0 100px;
+    height: 100%;
 
     .symptoms-area {
       width: 100%;

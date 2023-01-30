@@ -26,7 +26,7 @@ export default function StackedBarChart({ data }) {
     datasets: data.map((item) => ({
       label: item.name,
       data: item.value,
-      backgroundColor: item.color,
+      backgroundColor: `${item.color}95`,
     })),
   };
 
@@ -43,6 +43,9 @@ export default function StackedBarChart({ data }) {
     plugins: {
       legend: {
         display: false,
+      },
+      datasets: {
+        fillOpacity: 0,
       },
     },
   };

@@ -19,3 +19,13 @@ export async function upsertMood(body, token) {
 
   return response.data;
 }
+
+export async function loadUserMoods(token) {
+  const response = await api.get('/moods/history', {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return response.data;
+}

@@ -18,6 +18,7 @@ import History from './pages/dashboard/History';
 import Reports from './pages/dashboard/Reports';
 import Moods from './pages/dashboard/Moods';
 import Charts from './pages/dashboard/Charts';
+import MyReport from './pages/dashboard/MyReport';
 
 import { UserProvider } from './contexts/UserContext';
 
@@ -45,6 +46,7 @@ function App() {
               <Route path="add/report" element={<AddReport />} />
               <Route path="history" element={<History />} />
               <Route path="history/reports" element={<Reports />} />
+              <Route path="history/reports/:reportId" element={<MyReport />} />
               <Route path="history/moods" element={<Moods />} />
               <Route path="history/charts" element={<Charts />} />
               <Route index path="*" element={<Navigate to="/dashboard/home" />} />

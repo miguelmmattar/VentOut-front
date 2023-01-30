@@ -3,7 +3,7 @@ import useToken from '../useToken';
 
 import * as reportApi from '../../services/reportApi';
 
-export default function useSaveMood() {
+export default function useSaveReport() {
   const token = useToken();
 
   const {
