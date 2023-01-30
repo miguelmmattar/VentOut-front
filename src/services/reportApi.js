@@ -29,3 +29,13 @@ export async function loadReports(token) {
 
   return response.data;
 }
+
+export async function loadReport(reportId, token) {
+  const response = await api.get(`/report/${reportId}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return response.data;
+}

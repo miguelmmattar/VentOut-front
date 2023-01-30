@@ -137,7 +137,7 @@ function WriteReport({ label, text, setText }) {
   );
 }
 
-const StyledReport = styled.div`
+export const StyledReport = styled.div`
   h5 {
     font-size: 14px;
     color: ${(props) => props.mainPalette.main};

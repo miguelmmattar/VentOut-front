@@ -7,6 +7,7 @@ export default function createTitle(location) {
   if (location === '/dashboard/history/reports') title = 'My Reports';
   if (location === '/dashboard/history/moods') title = 'My Moods';
   if (location === '/dashboard/history/charts') title = 'My Charts';
+  if (location.includes('/dashboard/history/reports/')) title = 'My Report';
 
   return title;
 }

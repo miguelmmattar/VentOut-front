@@ -32,9 +32,8 @@ export default function Reports() {
   return (
     <StyledHistory mainPalette={mainPalette}>
       {reportsList.map((data, index) => (
-        <Link to={`${data?.id}`}>
+        <Link to={`${data?.id}`} key={index}>
           <PastReport
-            key={index}
             data={data}
           />
         </Link>

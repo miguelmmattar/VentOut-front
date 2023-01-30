@@ -6,6 +6,11 @@ const Container = styled.div`
   background-color: white;
   border-radius: 10px;
   border: .1px solid ${(props) => props.mainPalette.border};
+
+  p {
+    color: ${(props) => props.mainPalette.placeholder};
+    margin: 10px;
+  }
 `;
 
 export default Container;
