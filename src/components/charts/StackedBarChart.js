@@ -25,7 +25,7 @@ export default function StackedBarChart({ data }) {
     labels,
     datasets: data.map((item) => ({
       label: item.name,
-      data: item.days,
+      data: item.value,
       backgroundColor: item.color,
     })),
   };
@@ -38,6 +38,11 @@ export default function StackedBarChart({ data }) {
       },
       y: {
         stacked: true,
+      },
+    },
+    plugins: {
+      legend: {
+        display: false,
       },
     },
   };

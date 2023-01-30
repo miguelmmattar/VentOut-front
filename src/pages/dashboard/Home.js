@@ -14,32 +14,6 @@ import useChartsData from '../../hooks/api/useChartsData';
 import dateFilters from '../../utils/dateUtils';
 
 export default function Home() {
-  const week = [
-    {
-      value: 1,
-      name: 'Anger',
-      color: '#ecf0f1',
-      days: [1, 0, 3, 1, 2, 0, 1],
-    },
-    {
-      value: 4,
-      name: 'Joy',
-      color: '#50af95',
-      days: [0, 2, 1, 1, 3, 0, 0],
-    },
-    {
-      value: 2,
-      name: 'Passion',
-      color: '#f3ba2f',
-      days: [2, 1, 0, 0, 1, 2, 2],
-    },
-    {
-      value: 6,
-      name: 'Fear',
-      color: '#2a71d0',
-      days: [1, 3, 1, 2, 1, 1, 0],
-    },
-  ];
   const { getChartsData, chartsDataLoading } = useChartsData();
   const [data, setData] = useState({
     emotions: null,
@@ -55,7 +29,7 @@ export default function Home() {
 
       try {
         const result = await getChartsData(filter);
-        console.log(result);
+
         if (result) {
           setData(result);
         }
@@ -74,12 +48,14 @@ export default function Home() {
       <StyledHome mainPalette={mainPalette}>
         <div className="week-area emotions-area">
           <Chart label="My Week">
-            <StackedBarChart data={week} />
+            {!data.week || chartsDataLoading
+              ? <p>Loading...</p>
+              : <StackedBarChart data={data?.week} />}
           </Chart>
 
           <Chart label="My Emotions">
             {!data.emotions || chartsDataLoading
-              ? <p>Carregando...</p>
+              ? <p>Loading...</p>
               : <DoughnutChart data={data?.emotions} />}
           </Chart>
         </div>
@@ -89,7 +65,7 @@ export default function Home() {
         <div className="symptoms-area">
           <Chart label="My Symptoms">
             {!data.symptoms || chartsDataLoading
-              ? <p>Carregando...</p>
+              ? <p>Loading...</p>
               : <RadarChart data={data?.symptoms} />}
           </Chart>
         </div>
@@ -111,7 +87,11 @@ function Chart({ label, children }) {
 
 const StyledHome = styled.div`
   padding-top: 90px;
-  
+  p {
+    color: ${(props) => props.mainPalette.placeholder};
+    padding: 10px;
+  }
+
   h5 {
     font-size: 14px;
     color: ${(props) => props.mainPalette.main};
