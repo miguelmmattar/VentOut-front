@@ -9,6 +9,7 @@ import Container from '../../components/StyledComponents/Container';
 import useInitialData from '../../hooks/api/useInitialData';
 import useSaveReport from '../../hooks/api/useSaveReport';
 import SelectDate from '../../components/AddReport/SelectDate';
+import Divider from '../../components/StyledComponents/Divider';
 
 export default function AddReport() {
   const navigate = useNavigate();
@@ -142,9 +143,6 @@ const StyledReport = styled.div`
     color: ${(props) => props.mainPalette.main};
     text-align: left;
     line-height: 24px;
-  }
-
-  h5 {
     font-weight: 700;
     margin: 20px 0 5px 0;
   }
@@ -241,16 +239,5 @@ const ButtonsWrapper = styled.div`
     button {
       width: 100px;
     }
-  }
-`;
-
-const Divider = styled.div`
-  height: calc(100vh - 160px);
-  width: 1px;
-  margin: 20px 100px 0 100px;
-  border: 1px solid ${(props) => props.mainPalette.border};
-
-  @media(max-width: 1023px) {
-    display: none;
   }
 `;

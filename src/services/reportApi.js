@@ -1,7 +1,7 @@
 import api from './api';
 
 export async function loadInitialData(token) {
-  const response = await api.get('/initial-data', {
+  const response = await api.get('/data', {
     headers: {
       Authorization: `Bearer ${token}`,
     },

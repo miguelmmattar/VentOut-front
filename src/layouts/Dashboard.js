@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { mainPalette } from '../utils/colors';
 
 export default function Dashboard({ children }) {
-  console.log(children);
   return (
     <StyledDashboard mainPalette={mainPalette}>
       {children}
