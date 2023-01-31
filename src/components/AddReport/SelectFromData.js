@@ -17,7 +17,6 @@ export default function SelectFromData({
     multiValueRemove: (styles, { data }) => ({
       ...styles, color: 'white', cursor: 'pointer', ':hover': { color: 'white' },
     }),
-    placholder: (styles) => ({ ...styles, color: 'red' }),
   };
 
   function handleChange(selectedOption) {

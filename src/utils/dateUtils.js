@@ -3,6 +3,7 @@ const dateFilters = {
   week: 'week',
   month: 'month',
   year: 'year',
+  allTime: 'all time',
 };
 
 export default dateFilters;
