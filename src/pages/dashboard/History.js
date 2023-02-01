@@ -59,6 +59,16 @@ export const StyledHistory = styled.div`
     color: ${(props) => props.mainPalette.placeholder};
   }
 
+  .alternative-message {
+    margin-left: 20px;
+  }
+
+  @media(min-width: 768px) and (max-width: 1023px) {
+    .alternative-message {
+      margin-left: 0;
+    }
+  }
+
   @media(min-width: 1024px) {
     position: initial;
     flex-direction: row;
@@ -83,6 +93,10 @@ export const StyledHistory = styled.div`
 
     svg {
       display: none;
+    }
+
+    .alternative-message {
+    margin-left: 0;
     }
 }
 `;

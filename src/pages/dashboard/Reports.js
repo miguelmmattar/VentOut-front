@@ -12,7 +12,7 @@ import useReports from '../../hooks/api/useReports';
 export default function Reports() {
   const { getReports } = useReports();
   const [reportsList, setReportsList] = useState([]);
-
+  console.log(reportsList);
   useEffect(() => {
     const loadReportsData = async () => {
       try {
@@ -31,13 +31,16 @@ export default function Reports() {
 
   return (
     <StyledHistory mainPalette={mainPalette}>
-      {reportsList.map((data, index) => (
-        <Link to={`${data?.id}`} key={index}>
-          <PastReport
-            data={data}
-          />
-        </Link>
-      ))}
+      { reportsList.length === 0
+        ? <p className="alternative-message history-page">It looks like you haven&apos;t made any reports lately...</p> : (
+          reportsList.map((data, index) => (
+            <Link to={`${data?.id}`} key={index}>
+              <PastReport
+                data={data}
+              />
+            </Link>
+          ))
+        )}
     </StyledHistory>
   );
 }

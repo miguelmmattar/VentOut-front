@@ -116,6 +116,7 @@ const MoodWrapper = styled.div`
     align-items: center;
     justify-content: space-between;
     cursor: pointer;
+    z-index: 2;
 
     div {
         height: 60px;

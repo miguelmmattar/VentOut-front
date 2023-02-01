@@ -37,12 +37,15 @@ export default function Moods() {
 
   return (
     <StyledHistory mainPalette={mainPalette}>
-      {moodsList.map((data, index) => (
-        <PastMood
-          key={index}
-          data={data}
-        />
-      ))}
+      { moodsList.length === 0
+        ? <p className="alternative-message history-page">It looks like you haven&apos;t made any reports lately...</p> : (
+          moodsList.map((data, index) => (
+            <PastMood
+              key={index}
+              data={data}
+            />
+          ))
+        )}
     </StyledHistory>
   );
 }

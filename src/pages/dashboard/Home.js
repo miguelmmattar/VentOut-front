@@ -45,31 +45,35 @@ export default function Home() {
     <>
       <MoodPicker />
 
-      <StyledHome mainPalette={mainPalette}>
-        <div className="week-area emotions-area">
-          <Chart label="My Week">
-            {!data.week || chartsDataLoading
-              ? <p>Loading...</p>
-              : <StackedBarChart data={data?.week} />}
-          </Chart>
+      { data.emotions?.length === 0
+        ? <p className="alternative-message">It looks like you haven&apos;t made any reports lately...</p> : (
 
-          <Chart label="My Emotions">
-            {!data.emotions || chartsDataLoading
-              ? <p>Loading...</p>
-              : <DoughnutChart data={data?.emotions} />}
-          </Chart>
-        </div>
+          <StyledHome mainPalette={mainPalette}>
+            <div className="week-area emotions-area">
+              <Chart label="My Week">
+                {!data.week || chartsDataLoading
+                  ? <p>Loading...</p>
+                  : <StackedBarChart data={data?.week} />}
+              </Chart>
 
-        <Divider mainPalette={mainPalette} />
+              <Chart label="My Emotions">
+                {!data.emotions || chartsDataLoading
+                  ? <p>Loading...</p>
+                  : <DoughnutChart data={data?.emotions} />}
+              </Chart>
+            </div>
 
-        <div className="symptoms-area">
-          <Chart label="My Symptoms">
-            {!data.symptoms || chartsDataLoading
-              ? <p>Loading...</p>
-              : <RadarChart data={data?.symptoms} />}
-          </Chart>
-        </div>
-      </StyledHome>
+            <Divider mainPalette={mainPalette} />
+
+            <div className="symptoms-area">
+              <Chart label="My Symptoms">
+                {!data.symptoms || chartsDataLoading
+                  ? <p>Loading...</p>
+                  : <RadarChart data={data?.symptoms} />}
+              </Chart>
+            </div>
+          </StyledHome>
+        )}
     </>
   );
 }

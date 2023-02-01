@@ -50,7 +50,7 @@ export default function MyReport() {
 
       <div className="selection-area">
         <ReportDate
-          label="When it happned"
+          label="When it happened"
           date={reportData.date}
 
         />

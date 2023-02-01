@@ -11,6 +11,10 @@ const Container = styled.div`
     color: ${(props) => props.mainPalette.placeholder};
     margin: 10px;
   }
+
+  .alternative-message {
+    line-height: 24px;
+  }
 `;
 
 export default Container;

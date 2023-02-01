@@ -9,6 +9,8 @@ import {
 } from 'chart.js';
 import { Radar } from 'react-chartjs-2';
 
+import { mainPalette } from '../../utils/colors';
+
 ChartJS.register(
   RadialLinearScale,
   PointElement,
@@ -24,8 +26,8 @@ export default function RadarChart({ data }) {
     datasets: [{
       label: 'Occurrences',
       data: data.map((item) => item.value),
-      backgroundColor: 'rgba(127, 176, 168, .5)',
-      brderColor: 'rgb(127, 176, 168)',
+      backgroundColor: `${mainPalette.main}90`,
+      brderColor: mainPalette.main,
       pointRadius: 7,
       pointBackgroundColor: data.map((item) => item.color),
       pointBorderColor: data.map((item) => item.color),
@@ -34,6 +36,7 @@ export default function RadarChart({ data }) {
   };
 
   const options = {
+    responsive: true,
     plugins: {
       legend: {
         display: false,

@@ -84,7 +84,7 @@ const StyledAuth = styled.div`
           height: auto;
           border-radius: 20px;
           border: solid 1px ${(props) => props.mainPalette.border};
-          box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.15);
+          box-shadow: 2px -2px 4px rgba(0, 0, 0, 0.15);
 
           img {
             margin: 50px 0 40px 0; 

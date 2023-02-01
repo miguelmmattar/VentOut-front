@@ -46,36 +46,40 @@ export default function Charts() {
 
   return (
     <StyledChartsHistory>
-      <StyledHome mainPalette={mainPalette}>
-        <SelectWindow
-          placeholder="Add an emotion"
-          setWindow={setWindow}
-        />
+      { data.emotions?.length === 0
+        ? <p className="alternative-message history-page">It looks like you haven&apos;t made any reports lately...</p> : (
 
-        <div className="week-area emotions-area">
-          <Chart label={window === dateFilters.week ? 'My Week' : 'My Weeks'}>
-            {!data.week || chartsDataLoading
-              ? <p>Loading...</p>
-              : <StackedBarChart data={data?.week} />}
-          </Chart>
+          <StyledHome mainPalette={mainPalette}>
+            <SelectWindow
+              placeholder="Add an emotion"
+              setWindow={setWindow}
+            />
 
-          <Chart label="My Emotions">
-            {!data.emotions || chartsDataLoading
-              ? <p>Loading...</p>
-              : <DoughnutChart data={data?.emotions} />}
-          </Chart>
-        </div>
+            <div className="week-area emotions-area">
+              <Chart label={window === dateFilters.week ? 'My Week' : 'My Weeks'}>
+                {!data.week || chartsDataLoading
+                  ? <p>Loading...</p>
+                  : <StackedBarChart data={data?.week} />}
+              </Chart>
 
-        <Divider mainPalette={mainPalette} />
+              <Chart label="My Emotions">
+                {!data.emotions || chartsDataLoading
+                  ? <p>Loading...</p>
+                  : <DoughnutChart data={data?.emotions} />}
+              </Chart>
+            </div>
 
-        <div className="symptoms-area">
-          <Chart label="My Symptoms">
-            {!data.symptoms || chartsDataLoading
-              ? <p>Loading...</p>
-              : <RadarChart data={data?.symptoms} />}
-          </Chart>
-        </div>
-      </StyledHome>
+            <Divider mainPalette={mainPalette} />
+
+            <div className="symptoms-area">
+              <Chart label="My Symptoms">
+                {!data.symptoms || chartsDataLoading
+                  ? <p>Loading...</p>
+                  : <RadarChart data={data?.symptoms} />}
+              </Chart>
+            </div>
+          </StyledHome>
+        )}
     </StyledChartsHistory>
   );
 }
