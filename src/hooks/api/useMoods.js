@@ -11,7 +11,7 @@ export default function useMoods() {
     loading: moodsLoading,
     error: moodsError,
     act: getMoods,
-  } = useAsync(() => moodApi.loadUserMoods(token), false);
+  } = useAsync((data) => moodApi.loadUserMoods(data, token), false);
 
   return {
     moods,

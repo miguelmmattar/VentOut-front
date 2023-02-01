@@ -4,28 +4,34 @@ import { Link } from 'react-router-dom';
 import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
+import InfiniteScroll from 'react-infinite-scroller';
+import { RotatingLines } from 'react-loader-spinner';
 
 import { StyledHistory } from './History';
 import { mainPalette } from '../../utils/colors';
 import useReports from '../../hooks/api/useReports';
+import ScrollLoader from '../../components/StyledComponents/ScrollLoader';
 
 export default function Reports() {
   const { getReports } = useReports();
   const [reportsList, setReportsList] = useState([]);
+  const [loadMore, setLoadMore] = useState([false]);
+
+  async function loadReportsData() {
+    try {
+      const result = await getReports(reportsList.length);
+
+      if (result) {
+        setReportsList(reportsList.concat(result));
+      }
+    } catch (error) {
+      toast('Cannot load reports data!');
+    }
+
+    setLoadMore(false);
+  }
 
   useEffect(() => {
-    const loadReportsData = async () => {
-      try {
-        const result = await getReports();
-
-        if (result) {
-          setReportsList(result);
-        }
-      } catch (error) {
-        toast('Cannot load reports data!');
-      }
-    };
-
     loadReportsData();
   }, []);
 
@@ -33,13 +39,35 @@ export default function Reports() {
     <StyledHistory mainPalette={mainPalette}>
       { reportsList.length === 0
         ? <p className="alternative-message history-page">It looks like you haven&apos;t made any reports lately...</p> : (
-          reportsList.map((data, index) => (
-            <Link to={`${data?.id}`} key={index}>
-              <PastReport
-                data={data}
-              />
-            </Link>
-          ))
+          <InfiniteScroll
+            className="infinite-scroll"
+            pageStart={0}
+            hasMore
+            initialLoad={false}
+            loader={(
+              <ScrollLoader key={0} rendered={loadMore}>
+                <RotatingLines
+                  strokeColor={mainPalette.placeholder}
+                  animationDuration="0.75"
+                  visible
+                />
+              </ScrollLoader>
+            )}
+            loadMore={async () => {
+              if (reportsList.length % 40 !== 0) return;
+              setLoadMore(true);
+              setTimeout(loadReportsData, 1000);
+            }}
+          >
+
+            {reportsList.map((data, index) => (
+              <Link to={`${data?.id}`} key={index}>
+                <PastReport
+                  data={data}
+                />
+              </Link>
+            ))}
+          </InfiniteScroll>
         )}
     </StyledHistory>
   );
@@ -64,7 +92,6 @@ const StyledReport = styled.span`
   justify-content: space-between;
   padding: 0 10px;
   background-color: white;
-
   border: 1px solid ${(props) => props.mainPalette.border};
 
   h5 {

@@ -20,8 +20,8 @@ export async function postReport(body, token) {
   return response.data;
 }
 
-export async function loadReports(token) {
-  const response = await api.get('/report', {
+export async function loadReports(offset, token) {
+  const response = await api.get(`/report?offset=${offset}`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },

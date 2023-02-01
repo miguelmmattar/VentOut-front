@@ -51,7 +51,7 @@ textarea:focus, input:focus, select:focus {
 
     *::-webkit-scrollbar {
         width: 6px;
-        background-color: rgba(0, 0, 0, 0); 
+        background-color: #F8F8F8; 
     }
 
     *::-webkit-scrollbar-thumb {

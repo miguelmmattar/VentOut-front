@@ -63,6 +63,22 @@ export const StyledHistory = styled.div`
     margin-left: 20px;
   }
 
+  .infinite-scroll {
+    width: 100%;
+    min-height: 100vh !important;
+    height: auto !important;
+    display: flex;
+    flex-direction: column;
+    padding: 0 0 90px 0;
+    border: 0;
+    background-color: ${(props) => props.mainPalette.background} !important;
+    justify-content: start;
+  }
+
+  .infinite-scroll > a {
+    width: 100%;
+  }
+
   @media(min-width: 768px) and (max-width: 1023px) {
     .alternative-message {
       margin-left: 0;
@@ -98,5 +114,30 @@ export const StyledHistory = styled.div`
     .alternative-message {
     margin-left: 0;
     }
+
+    .infinite-scroll {
+    flex-direction: row;
+    padding: 0 0 90px 0;
+    background-color: ${(props) => props.mainPalette.background} !important;
+    align-items: baseline;
+    flex-wrap: wrap;
+    min-height: 0 !important;
+  }
+
+  .infinite-scroll > a {
+    width: 180px;
+    height: 180px;
+    margin: 20px !important;
+    display: block;
+  }
+
+  .infinite-scroll span {
+    margin: 0 !important;
+    padding: 40px 5px 50px 5px;
+  }
+
+  .infinite-scroll > span {
+    margin: 18px !important;
+  }
 }
 `;

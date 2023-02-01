@@ -10,7 +10,7 @@ export default function useReports() {
     loading: reportsLoading,
     error: reportsError,
     act: getReports,
-  } = useAsync(() => reportApi.loadReports(token), false);
+  } = useAsync((data) => reportApi.loadReports(data, token), false);
 
   return {
     reportsLoading,

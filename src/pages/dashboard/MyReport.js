@@ -20,7 +20,7 @@ export default function MyReport() {
     physicalSymptoms: [],
     emotionalSymptoms: [],
   });
-  console.log(reportData);
+
   useEffect(() => {
     const loadReportData = async () => {
       try {
