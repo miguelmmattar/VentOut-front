@@ -156,6 +156,8 @@ export const StyledReport = styled.div`
     border: 0;
     border-radius: 10px;
     resize: none;
+    line-height: 22px;
+    color: ${(props) => props.mainPalette.placeholder};
   }
 
   textarea::placeholder {
@@ -164,8 +166,12 @@ export const StyledReport = styled.div`
     line-height: 20px;
   }
 
+  .text-area {
+    line-height: 22px;
+  }
+
   .text-area div {
-    height: 150px;
+    min-height: 150px;
     padding: 0;
   }
 
@@ -180,11 +186,13 @@ export const StyledReport = styled.div`
     }
 
     .text-area div {
-    height: 350px;
+    min-height: 350px;
     }
 
     textarea {
-      height: 348px;
+      height: 350px;
+      margin: 7px 0;
+      cursor: auto;
     }
 
     h5, h6 {

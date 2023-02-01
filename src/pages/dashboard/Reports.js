@@ -12,7 +12,7 @@ import useReports from '../../hooks/api/useReports';
 export default function Reports() {
   const { getReports } = useReports();
   const [reportsList, setReportsList] = useState([]);
-  console.log(reportsList);
+
   useEffect(() => {
     const loadReportsData = async () => {
       try {

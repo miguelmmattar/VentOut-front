@@ -48,4 +48,16 @@ textarea:focus, input:focus, select:focus {
     .mobile {
         display: none !important;
     }
+
+    *::-webkit-scrollbar {
+        width: 6px;
+        background-color: rgba(0, 0, 0, 0); 
+    }
+
+    *::-webkit-scrollbar-thumb {
+        background-color: #A7ADB040;
+        border-radius: 6px;
+        cursor: pointer;
+    }
+
 }
